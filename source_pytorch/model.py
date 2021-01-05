@@ -31,6 +31,8 @@ class BinaryClassifier(nn.Module):
         self.fc1 = nn.Linear(input_features, hidden_dim)
         self.fc2 = nn.Linear(hidden_dim, output_dim)
         self.drop = nn.Dropout(0.3)
+        # sigmoid layer
+        self.sig = nn.Sigmoid()
     
     ## TODO: Define the feedforward behavior of the network
     def forward(self, x):
@@ -44,5 +46,6 @@ class BinaryClassifier(nn.Module):
         out = F.relu(self.fc1(x)) # activation on hidden layer
         out = self.drop(out)
         out = self.fc2(out)
-        return x
+        #return x
+        return self.sig(out) # returning class score
     
