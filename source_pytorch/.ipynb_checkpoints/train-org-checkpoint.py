@@ -6,10 +6,6 @@ import torch
 import torch.optim as optim
 import torch.utils.data
 
-#additional imports
-import sys
-import sagemaker_containers
-
 # imports the model in model.py by name
 from model import BinaryClassifier
 
@@ -120,12 +116,7 @@ if __name__ == '__main__':
     
     ## TODO: Add args for the three model parameters: input_features, hidden_dim, output_dim
     # Model Parameters
-    parser.add_argument('--input_features', type=int, default=4, metavar='IN',
-                        help='number of input features (default: 4)')
-    parser.add_argument('--hidden_dim', type=int, default=100, metavar='H',
-                        help='size of the hidden dimension (default: 100)')
-    parser.add_argument('--output_dim', type=int, default=1, metavar='OUT',
-                        help='outputs (1/0) (default: 1)')  
+    
     
     # args holds all passed-in arguments
     args = parser.parse_args()
@@ -144,12 +135,11 @@ if __name__ == '__main__':
     ## TODO:  Build the model by passing in the input params
     # To get params from the parser, call args.argument_name, ex. args.epochs or ards.hidden_dim
     # Don't forget to move your model .to(device) to move to GPU , if appropriate
-    model = BinaryClassifier(args.input_features, args.hidden_dim, args.output_dim)
+    model = None
 
-    ## TODO: Define an optimizer and loss function for training 
-    optimizer =  optim.Adam(model.parameters())
-    #or: optimizer = optim.Adam(model.parameters(), lr=args.lr)
-    criterion = torch.nn.BCELoss()
+    ## TODO: Define an optimizer and loss function for training
+    optimizer = None
+    criterion = None
 
     # Trains the model (given line of code, which calls the above training function)
     train(model, train_loader, args.epochs, criterion, optimizer, device)
@@ -160,8 +150,8 @@ if __name__ == '__main__':
     with open(model_info_path, 'wb') as f:
         model_info = {
             'input_features': args.input_features,
-            'hidden_dim': args.hidden_dim,
-            'output_dim': args.output_dim,
+            'hidden_dim': <add_arg>,
+            'output_dim': <add_arg>,
         }
         torch.save(model_info, f)
         
